@@ -201,4 +201,44 @@ document.addEventListener('DOMContentLoaded', () => {
       delay: 0,
     },
   });
+
+// before-after
+  const slider = document.querySelector('.l-experience__slider');
+  const handle = document.querySelector('.l-experience__slider-handle');
+  const before = document.querySelector('.l-experience__slider-image--before');
+  const after = document.querySelector('.l-experience__slider-image--after');
+  let isDragging = false;
+  const startDragging = () => {
+    isDragging = true;
+  };
+  const stopDragging = () => {
+    isDragging = false;
+  };
+  const onDrag = (e) => {
+    if (!isDragging) return;
+    const sliderRect = slider.getBoundingClientRect();
+    let clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    let offsetY = clientY - sliderRect.top;
+    if (offsetY < 0) offsetY = 0;
+    if (offsetY > sliderRect.height) offsetY = sliderRect.height;
+    handle.style.top = `${offsetY}px`;
+    before.style.clip = `rect(0, ${sliderRect.width}px, ${offsetY}px, 0)`;
+    after.style.clip = `rect(${offsetY}px, ${sliderRect.width}px, ${sliderRect.height}px, 0)`;
+  };
+  handle.addEventListener('mousedown', startDragging);
+  handle.addEventListener('touchstart', startDragging);
+  window.addEventListener('mouseup', stopDragging);
+  window.addEventListener('touchend', stopDragging);
+  window.addEventListener('mousemove', onDrag);
+  window.addEventListener('touchmove', onDrag);
+  // クリック促進アイコン
+  const iconPointer = document.querySelector('.l-experience__slider-handle');
+  if (iconPointer) {
+    const hideIcon = () => {
+      iconPointer.classList.add('hidden');
+    };
+    iconPointer.addEventListener('click', hideIcon);
+    iconPointer.addEventListener('touchstart', hideIcon);
+    iconPointer.addEventListener('mousedown', hideIcon);
+  }
 });
