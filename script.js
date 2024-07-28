@@ -192,13 +192,26 @@ document.addEventListener('DOMContentLoaded', () => {
   drawerCloseButton.addEventListener('click', hideDrawer);
 
 // Swiper
-  const swiper = new Swiper(".swiper", {
+  const beforeAfterSlider = new Swiper(".js-before-after-slider", {
     loop: true,
     slidesPerView: 3.5,
     speed: 6000,
     allowTouchMove: false,
     autoplay: {
       delay: 0,
+    },
+  });
+
+  const voiceSlider = new Swiper(".js-voice-slider", {
+    loop: true,
+    slidesPerView: 1,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
     },
   });
 
@@ -241,4 +254,24 @@ document.addEventListener('DOMContentLoaded', () => {
     iconPointer.addEventListener('touchstart', hideIcon);
     iconPointer.addEventListener('mousedown', hideIcon);
   }
+
+// 施術部位タブ切り替え
+  // const tabs = document.querySelectorAll('.l-parts__tab-button');
+  // const contents = document.querySelectorAll('.l-parts__tab-content');
+  // tabs.forEach(tab => {
+  //   tab.addEventListener('click', (elem) => {
+  //     tabs.forEach(t => {
+  //       t.classList.remove('active');
+  //     });
+  //     tab.classList.add('active');
+  //     const contentId = tab.dataset.tab;
+  //     const contentToShow = document.getElementById(contentId);
+  //     // すべてのコンテンツを非表示にする
+  //     contents.forEach(content => {
+  //       content.classList.remove('active');
+  //     });
+  //     // クリックされたタブに関連するコンテンツを表示する
+  //     contentToShow.classList.add('active');
+  //   });
+  // });
 });
