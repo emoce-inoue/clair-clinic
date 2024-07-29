@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Swiper
   const beforeAfterSlider = new Swiper(".js-before-after-slider", {
     loop: true,
-    slidesPerView: 3.5,
+    slidesPerView: 2.75,
     speed: 6000,
     allowTouchMove: false,
     autoplay: {
@@ -214,6 +214,33 @@ document.addEventListener('DOMContentLoaded', () => {
       clickable: true,
     },
   });
+
+  const contentItems = document.querySelectorAll('.l-artist__desc');
+  const artistSlider = new Swiper('.js-artist-slider', {
+    loop: true,
+    slidesPerView: 1.5,
+    spaceBetween: 30,
+    centeredSlides: true,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    on: {
+      slideChange: function () {
+        // 全てのコンテンツを非表示にする
+        contentItems.forEach(item => item.classList.remove('active'));
+        // 現在のスライドに対応するコンテンツを表示する
+        const activeIndex = this.realIndex + 1;
+        document.getElementById(`artist-${activeIndex}`).classList.add('active');
+      },
+    },
+  });
+  // 初期表示のために最初のコンテンツをアクティブに設定
+  document.getElementById('artist-1').classList.add('active');
 
 // before-after
   const slider = document.querySelector('.l-experience__slider');
