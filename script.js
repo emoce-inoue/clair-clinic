@@ -15,164 +15,34 @@
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
-// fade
-  const observerOptions = {
-    threshold: 0.1
-  };
-  const observer = new IntersectionObserver((entries) => {
+  const observerCallback = (entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('is-inview');
       }
     });
-  }, observerOptions);
+  };
+  // 共通のオプションとオブザーバー
+  const defaultObserverOptions = {
+    threshold: 0.1
+  };
+  const defaultObserver = new IntersectionObserver(observerCallback, defaultObserverOptions);
+  // .js-scaling用のオプションとオブザーバー
+  const scalingObserverOptions = {
+    threshold: 1
+  };
+  const scalingObserver = new IntersectionObserver(observerCallback, scalingObserverOptions);
+  // ターゲット要素を取得して、それぞれのオブザーバーに登録
   const targetElements = document.querySelectorAll('.js-fade, .js-fadeUp, .js-scaling, .js-bounce, .js-shine');
   targetElements.forEach(target => {
-    observer.observe(target);
+    if (target.classList.contains('js-scaling')) {
+      scalingObserver.observe(target);
+    } else {
+      defaultObserver.observe(target);
+    }
   });
 
 // 診断コンテンツ
-  // const startButton = document.querySelector('.js-start-button');
-  // const diagnosisItems = document.querySelectorAll('.js-diagnosis-prepared .l-diagnosis__item');
-  // let currentStep = 0;
-  // const points = {
-  //   immediate: 0,
-  //   finish: 0,
-  //   durability: 0,
-  //   sideEffects: 0
-  // };
-  // // 初期表示設定（スタートボタン）
-  // startButton.addEventListener('click', () => {
-  //   diagnosisItems.forEach((item, index) => {
-  //     if (index === 1) {
-  //       item.classList.add('active');
-  //       currentStep = 1;
-  //     } else {
-  //       item.classList.remove('active');
-  //     }
-  //   });
-  //   togglePrevButton(currentStep);
-  //   toggleNextButton(currentStep);
-  // });
-  // // 回答ボタンがクリックされたときの処理
-  // const handleAnswerClick = (event) => {
-  //   const answerElement = event.target.closest('.l-diagnosis__answer-button');
-  //   if (answerElement) {
-  //     updatePoints(answerElement);
-  //     setInactiveAnswers(answerElement);
-  //     toggleNextButton(currentStep);
-  //     if (currentStep < 6) {
-  //       showNextQuestion();
-  //     }
-  //     if (currentStep === 6) {
-  //       showResultButton();
-  //     }
-  //   }
-  // };
-  // // 次の質問を表示する処理
-  // const showNextQuestion = () => {
-  //   if (currentStep < 6) {
-  //     diagnosisItems[currentStep].classList.remove('active');
-  //     currentStep++;
-  //     diagnosisItems[currentStep].classList.add('active');
-  //     togglePrevButton(currentStep);
-  //     toggleNextButton(currentStep);
-  //   }
-  // };
-  // // 前の質問を表示する処理
-  // const showPrevQuestion = () => {
-  //   if (currentStep > 1) {
-  //     diagnosisItems[currentStep].classList.remove('active');
-  //     currentStep--;
-  //     diagnosisItems[currentStep].classList.add('active');
-  //     togglePrevButton(currentStep);
-  //     toggleNextButton(currentStep);
-  //   }
-  // };
-  // // 診断結果ボタンを表示する処理
-  // const showResultButton = () => {
-  //   const showResultButton = document.querySelector('.js-show-result');
-  //   const answered = diagnosisItems[currentStep].closest('.l-diagnosis__answer-button.inactive');
-  //     if (answered) {
-  //       showResultButton.classList.add('active');
-  //     }
-  //   showResultButton.addEventListener('click', () => {
-  //     diagnosisItems.forEach(item => item.classList.remove('active'));
-  //     const resultItem = getResultElement();
-  //     if (resultItem) {
-  //       resultItem.classList.add('active');
-  //     }
-  //   });
-  // };
-  // // ポイントを更新する処理
-  // const updatePoints = (answerElement) => {
-  //   ['immediate', 'finish', 'durability', 'sideEffects'].forEach(attr => {
-  //     if (answerElement.dataset[attr]) {
-  //       points[attr] += parseInt(answerElement.dataset[attr]);
-  //     }
-  //   });
-  // };
-  // // 未選択の回答にinactiveクラスを付与する処理
-  // const setInactiveAnswers = (answerElement) => {
-  //   const answerButtons = answerElement.closest('.l-diagnosis__item').querySelectorAll('.l-diagnosis__answer-button');
-  //   answerButtons.forEach(button => {
-  //     if (button !== answerElement) {
-  //       button.classList.add('inactive');
-  //     } else {
-  //       button.classList.remove('inactive');
-  //     }
-  //   });
-  // };
-  // // Nextボタンの表示/非表示を切り替える処理
-  // const toggleNextButton = (step) => {
-  //   const currentQuestion = diagnosisItems[step];
-  //   const nextButton = currentQuestion.querySelector('.l-diagnosis__next-button');
-  //   const answered = currentQuestion.querySelector('.l-diagnosis__answer-button.inactive');
-  //   if (answered) {
-  //     nextButton.classList.add('active');
-  //   } else {
-  //     nextButton.classList.remove('active');
-  //   }
-  // };
-  // // Prevボタンの表示/非表示を切り替える処理
-  // const togglePrevButton = (step) => {
-  //   const prevButton = diagnosisItems[step].querySelector('.l-diagnosis__prev-button');
-  //   if (prevButton) {
-  //     prevButton.classList.add('active');
-  //   }
-  // };
-  // // 各回答ボタンにイベントリスナーを追加
-  // const answerButtons = document.querySelectorAll('.l-diagnosis__answer-button');
-  // answerButtons.forEach(button => {
-  //   button.addEventListener('click', handleAnswerClick);
-  // });
-  // // 各Prevボタンにイベントリスナーを追加
-  // const prevButtons = document.querySelectorAll('.l-diagnosis__prev-button');
-  // prevButtons.forEach(button => {
-  //   button.addEventListener('click', showPrevQuestion);
-  // });
-  // // 各Nextボタンにイベントリスナーを追加
-  // const nextButtons = document.querySelectorAll('.l-diagnosis__next-button');
-  // nextButtons.forEach(button => {
-  //   button.addEventListener('click', showNextQuestion);
-  // });
-  // // 結果を判定して表示する処理
-  // const getResultElement = () => {
-  //   const { immediate, finish, durability, sideEffects } = points;
-  //   console.log(points)
-  //   if (finish + durability >= 5) {
-  //     return document.getElementById('result03');
-  //   } else if (sideEffects + finish <= 1) {
-  //     return document.getElementById('result04');
-  //   } else if (finish === 0 && sideEffects <= 2) {
-  //     return document.getElementById('result02');
-  //   } else if (immediate + sideEffects <= 2 && immediate <= 3 && sideEffects <= 3 && finish <= 3 && durability <= 3) {
-  //     return document.getElementById('result02');
-  //   } else {
-  //     return document.getElementById('result01');
-  //   }
-  // };
-
   const startButton = document.querySelector('.js-diagnosis-prepared .js-start-button');
   const diagnosisItems = document.querySelectorAll('.js-diagnosis-prepared .l-diagnosis__item');
   let currentStep = 0;
@@ -182,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
     durability: 0,
     sideEffects: 0
   };
-
   // 初期表示設定（スタートボタン）
   if (startButton) {
     startButton.addEventListener('click', () => {
@@ -198,7 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleNextButton(currentStep);
     });
   }
-
   // 回答ボタンがクリックされたときの処理
   const handleAnswerClick = (event) => {
     const answerElement = event.target.closest('.l-diagnosis__answer-button');
@@ -214,7 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   };
-
   // 次の質問を表示する処理
   const showNextQuestion = () => {
     if (currentStep < 6) {
@@ -225,7 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleNextButton(currentStep);
     }
   };
-
   // 前の質問を表示する処理
   const showPrevQuestion = () => {
     if (currentStep > 1) {
@@ -236,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleNextButton(currentStep);
     }
   };
-
   // 診断結果ボタンを表示する処理
   const showResultButton = () => {
     const showResultButton = document.querySelector('.js-diagnosis-prepared .js-show-result');
@@ -254,7 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   };
-
   // ポイントを更新する処理
   const updatePoints = (answerElement) => {
     ['immediate', 'finish', 'durability', 'sideEffects'].forEach(attr => {
@@ -263,7 +127,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   };
-
   // 未選択の回答にinactiveクラスを付与する処理
   const setInactiveAnswers = (answerElement) => {
     const answerButtons = answerElement.closest('.l-diagnosis__item').querySelectorAll('.l-diagnosis__answer-button');
@@ -275,7 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   };
-
   // Nextボタンの表示/非表示を切り替える処理
   const toggleNextButton = (step) => {
     const currentQuestion = diagnosisItems[step];
@@ -289,7 +151,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   };
-
   // Prevボタンの表示/非表示を切り替える処理
   const togglePrevButton = (step) => {
     const prevButton = diagnosisItems[step].querySelector('.l-diagnosis__prev-button');
@@ -297,25 +158,21 @@ document.addEventListener('DOMContentLoaded', () => {
       prevButton.classList.add('active');
     }
   };
-
   // 各回答ボタンにイベントリスナーを追加
   const answerButtons = document.querySelectorAll('.js-diagnosis-prepared .l-diagnosis__answer-button');
   answerButtons.forEach(button => {
     button.addEventListener('click', handleAnswerClick);
   });
-
   // 各Prevボタンにイベントリスナーを追加
   const prevButtons = document.querySelectorAll('.js-diagnosis-prepared .l-diagnosis__prev-button');
   prevButtons.forEach(button => {
     button.addEventListener('click', showPrevQuestion);
   });
-
   // 各Nextボタンにイベントリスナーを追加
   const nextButtons = document.querySelectorAll('.js-diagnosis-prepared .l-diagnosis__next-button');
   nextButtons.forEach(button => {
     button.addEventListener('click', showNextQuestion);
   });
-
   // 結果を判定して表示する処理
   const getResultElement = () => {
     const { immediate, finish, durability, sideEffects } = points;
@@ -344,7 +201,6 @@ document.addEventListener('DOMContentLoaded', () => {
     durability: 0,
     sideEffects: 0
   };
-
   const initializeModalDiagnosis = () => {
     const startDiagnosisModal = (startStep) => {
       diagnosisItemsModal.forEach((item, index) => {
@@ -362,20 +218,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const handleAnswerClickModal = (event) => {
       const answerElement = event.target.closest('.l-diagnosis__answer-button');
       if (answerElement) {
+        console.log(modalCurrentStep)
         updatePointsModal(answerElement);
         setInactiveAnswersModal(answerElement);
         toggleNextButtonModal(modalCurrentStep);
-        if (modalCurrentStep < 6) {
+        if (modalCurrentStep < 5) {
           showNextQuestionModal();
         }
-        if (modalCurrentStep === 6) {
+        if (modalCurrentStep === 5) {
           showResultButtonModal();
         }
       }
     };
 
     const showNextQuestionModal = () => {
-      if (modalCurrentStep < 6) {
+      if (modalCurrentStep < 5) {
         diagnosisItemsModal[modalCurrentStep].classList.remove('active');
         modalCurrentStep++;
         diagnosisItemsModal[modalCurrentStep].classList.add('active');
@@ -395,10 +252,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const showResultButtonModal = () => {
-      // const showResultButton = diagnosisItemsModal[modalCurrentStep].querySelector('.js-show-result');
-      // const answered = diagnosisItemsModal[modalCurrentStep].querySelector('.l-diagnosis__answer-button.inactive');
       const showResultButton = document.querySelector('.js-diagnosis-modal .js-show-result');
-      const answered = document.querySelector('.js-diagnosis-modal .l-diagnosis__answer-button.inactive');
+      const answered = diagnosisItemsModal[modalCurrentStep].querySelector('.l-diagnosis__answer-button.inactive');
+      console.log(answered)
       if (answered) {
         showResultButton.classList.add('active');
       }
@@ -458,12 +314,10 @@ document.addEventListener('DOMContentLoaded', () => {
         answerButtons.forEach(button => {
           button.addEventListener('click', handleAnswerClickModal);
         });
-
         const prevButtons = item.querySelectorAll('.l-diagnosis__prev-button');
         prevButtons.forEach(button => {
           button.addEventListener('click', showPrevQuestionModal);
         });
-
         const nextButtons = item.querySelectorAll('.l-diagnosis__next-button');
         nextButtons.forEach(button => {
           button.addEventListener('click', showNextQuestionModal);
@@ -474,33 +328,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const getResultElementModal = () => {
       const { immediate, finish, durability, sideEffects } = modalPoints;
       if (finish + durability >= 5) {
-        return document.getElementById('result03');
+        return document.getElementById('modalResult03');
       } else if (sideEffects + finish <= 1) {
-        return document.getElementById('result04');
+        return document.getElementById('modalResult04');
       } else if (finish === 0 && sideEffects <= 2) {
-        return document.getElementById('result02');
+        return document.getElementById('modalResult02');
       } else if (immediate + sideEffects <= 2 && immediate <= 3 && sideEffects <= 3 && finish <= 3 && durability <= 3) {
-        return document.getElementById('result02');
+        return document.getElementById('modalResult02');
       } else {
-        return document.getElementById('result01');
+        return document.getElementById('modalResult01');
       }
     };
-
     modalTriggers.forEach(trigger => {
       trigger.addEventListener('click', () => {
-        // モーダル表示
         modalOverlay.style.display = 'flex';
         startDiagnosisModal(0);
       });
     });
-
     if (modalClose) {
       modalClose.addEventListener('click', () => {
-        // モーダル非表示
         modalOverlay.style.display = 'none';
       });
     }
-
     if (modalOverlay) {
       modalOverlay.addEventListener('click', (event) => {
         if (event.target === modalOverlay) {
@@ -508,10 +357,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }
-
     addAnswerEventListenersModal();
   };
-
   initializeModalDiagnosis();
 
 // ハンバーガーメニュー
@@ -562,10 +409,6 @@ document.addEventListener('DOMContentLoaded', () => {
     slidesPerView: 1.5,
     spaceBetween: 30,
     centeredSlides: true,
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
     navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
@@ -584,49 +427,18 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('artist-1').classList.add('active');
 
 // before-after
-  // const slider = document.querySelector('.l-experience__slider');
-  // const handle = document.querySelector('.l-experience__slider-handle');
-  // const before = document.querySelector('.l-experience__slider-image--before');
-  // const after = document.querySelector('.l-experience__slider-image--after');
-  // let isDragging = false;
-  // const startDragging = () => {
-  //   isDragging = true;
-  // };
-  // const stopDragging = () => {
-  //   isDragging = false;
-  // };
-  // const onDrag = (e) => {
-  //   if (!isDragging) return;
-  //   const sliderRect = slider.getBoundingClientRect();
-  //   let clientY = e.touches ? e.touches[0].clientY : e.clientY;
-  //   let offsetY = clientY - sliderRect.top;
-  //   if (offsetY < 0) offsetY = 0;
-  //   if (offsetY > sliderRect.height) offsetY = sliderRect.height;
-  //   handle.style.top = `${offsetY}px`;
-  //   before.style.clip = `rect(0, ${sliderRect.width}px, ${offsetY}px, 0)`;
-  //   after.style.clip = `rect(${offsetY}px, ${sliderRect.width}px, ${sliderRect.height}px, 0)`;
-  // };
-  // handle.addEventListener('mousedown', startDragging);
-  // handle.addEventListener('touchstart', startDragging);
-  // window.addEventListener('mouseup', stopDragging);
-  // window.addEventListener('touchend', stopDragging);
-  // window.addEventListener('mousemove', onDrag);
-  // window.addEventListener('touchmove', onDrag);
   const slider = document.querySelector('.l-experience__slider');
   const handle = document.querySelector('.l-experience__slider-handle');
   const before = document.querySelector('.l-experience__slider-image--before');
   const after = document.querySelector('.l-experience__slider-image--after');
   let isDragging = false;
-
   const startDragging = (e) => {
     e.preventDefault();
     isDragging = true;
   };
-
   const stopDragging = () => {
     isDragging = false;
   };
-
   const onDrag = (e) => {
     if (!isDragging) return;
     e.preventDefault();
@@ -639,7 +451,6 @@ document.addEventListener('DOMContentLoaded', () => {
     before.style.clip = `rect(0, ${sliderRect.width}px, ${offsetY}px, 0)`;
     after.style.clip = `rect(${offsetY}px, ${sliderRect.width}px, ${sliderRect.height}px, 0)`;
   };
-
   handle.addEventListener('mousedown', startDragging);
   handle.addEventListener('touchstart', startDragging, { passive: false });
   window.addEventListener('mouseup', stopDragging);
@@ -704,19 +515,4 @@ document.addEventListener('DOMContentLoaded', () => {
       contentToShow.classList.add('active');
     });
   });
-
-  // 
-  // const artChart = document.querySelector('.l-side-effect__art-chart');
-  // const artChartObserver = new IntersectionObserver(entries => {
-  //   entries.forEach(entry => {
-  //     if (entry.isIntersecting) {
-  //       entry.target.classList.add('active');
-  //       artChartObserver.unobserve(entry.target); // 一度activeクラスを付与したら監視を停止する
-  //     }
-  //   });
-  // }, {
-  //   threshold: 0.5 // 要素が50%表示されたときに発火
-  // });
-
-  // artChartObserver.observe(artChart);
 });

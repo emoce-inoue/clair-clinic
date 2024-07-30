@@ -873,10 +873,14 @@ summary::-webkit-details-marker {
 }
 
 .l-diagnosis__result-item--one {
+  font-size: 2.3rem;
+}
+
+.l-diagnosis__result-gold {
+  display: inline-block;
   background-image: linear-gradient(var(--gold-gradation));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 2.3rem;
 }
 
 .l-diagnosis__result-item--two {
@@ -1004,6 +1008,10 @@ summary::-webkit-details-marker {
   gap: 10px;
 }
 
+.l-drawer__service-item {
+  display: grid;
+} 
+
 .l-drawer__close-button-wrapper {
   grid-area: close;
 }
@@ -1094,6 +1102,7 @@ summary::-webkit-details-marker {
 }
 
 .l-thinning-hair__item {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1494,7 +1503,7 @@ summary::-webkit-details-marker {
 }
 
 .l-introduction__feature-text {
-  display: grid;
+  display: inline-block;
   justify-content: center;
   align-items: center;
   font-size: 1.6rem;
@@ -1508,6 +1517,7 @@ summary::-webkit-details-marker {
   display: grid;
   grid-template-rows: auto 1fr;
   gap: 5px;
+  align-items: center;
   margin: 5px;
   border: 0.6px solid var(--border-gold);
 }
@@ -1567,7 +1577,6 @@ summary::-webkit-details-marker {
 .l-reviews {
   position: relative;
   margin-block-start: 50px;
-  background: url(../images/reviews-bg.webp) no-repeat top center / cover;
   font-family: var(--font-sans-serif);
 }
 
@@ -1733,11 +1742,6 @@ summary::-webkit-details-marker {
   text-align: center;
 }
 
-.l-five-reasons__intro {
-  background: url(../images/five-reasons-intro.webp) no-repeat center / contain;
-  aspect-ratio: 2 / 1;
-}
-
 .l-five-reasons__inner {
   background-color: var(--color-bluescale-90);
 }
@@ -1781,6 +1785,7 @@ summary::-webkit-details-marker {
 .l-five-reasons__point-span2 {
   grid-column: span 2;
   justify-self: center;
+  inline-size: calc(100% / 2);
 }
 
 .l-five-reasons__point-text {
@@ -2130,9 +2135,14 @@ summary::-webkit-details-marker {
 
 .l-parts__tab-content-text {
   inline-size: fit-content;
+  block-size: 54px;
   margin: auto;
   font-size: 1.6rem;
   text-align: center;
+}
+
+.l-parts__tab-content-image {
+  block-size: 222px;
 }
 
 .l-parts__tab-content {
@@ -2147,6 +2157,7 @@ summary::-webkit-details-marker {
   gap: 34px;
   padding: 46px 20px;
   background-color: var(--color-pinkscale-50);
+  border-bottom: 1px solid var(--color-pinkscale-250);
   opacity: 1;
   visibility: visible;
 }
@@ -2429,7 +2440,7 @@ summary::-webkit-details-marker {
   gap: 16px;
   inline-size: 90%;
   margin: 20px auto 0;
-  padding: 26px 16px;
+  padding: 26px 10px;
   background: url(../images/flow02-bg.webp) no-repeat center / cover;
   color: var(--color-grayscale-500);
   text-align: center;
@@ -2821,7 +2832,7 @@ summary::-webkit-details-marker {
     display: grid;
     grid-auto-flow: column;
     align-items: center;
-    justify-content: end;
+    justify-content: start;
     gap: 10px;
     margin-block-end: 10px;
   }
@@ -2838,7 +2849,6 @@ summary::-webkit-details-marker {
   .l-large-right__address {
     inline-size: fit-content;
     margin-inline-start: auto;
-    margin-block-end: 10px;
     font-size: 1.2rem;
   }
 
@@ -2849,11 +2859,6 @@ summary::-webkit-details-marker {
   .l-large-right__map-wrapper {
     position: relative;
     margin-block-end: 10px;
-  }
-
-  .l-large-right__map-icon {
-    position: absolute;
-    max-inline-size: calc(200 / 768* 100%);
   }
 
   .l-large-right__map iframe {
@@ -2871,9 +2876,9 @@ summary::-webkit-details-marker {
   }
 
   .l-large-right__button {
-    inline-size: fit-content;
-    margin-inline-start: auto;
+    inline-size: 100%;
     margin-block-end: 30px;
+    text-align: center;
   }
 
   .l-large-right__copy {
@@ -2900,10 +2905,171 @@ summary::-webkit-details-marker {
     color: var(--color-pc-brown);
   }
 
+  .l-diagnosis--modal {
+    inline-size: 100%;
+    max-inline-size: 943px;
+  }
+
+  .l-diagnosis__item-content::after {
+    right: -4.6px;
+  }
+
+  .l-diagnosis--modal .l-diagnosis__modal-close {
+    inset-block-start: 30px;
+    inset-inline-end: 50px;
+  }
+
+  .l-diagnosis--modal .l-diagnosis__item-title {
+    font-size: 2.9rem;
+  }
+
+  .l-diagnosis--modal .l-diagnosis__answer-en {
+    font-size: 3.5rem;
+  }
+
+  .l-diagnosis--modal .l-diagnosis__answer-button {
+    block-size: 100px;
+    inline-size: 190px;
+    font-size: 1.8rem;
+   }
+
+   .l-diagnosis--modal .l-diagnosis__count {
+     font-size: 1.7rem;
+   }
+
+   .l-diagnosis--modal .l-diagnosis__count-number {
+      font-size: 4rem;
+   }
+
+   .sp-br {
+      display: none;
+   }
+
+   .l-diagnosis--modal .l-diagnosis__button-container {
+      inline-size: revert;
+   }
+
+   .l-diagnosis--modal .l-diagnosis__prev-button {
+    font-size: 2rem;
+   }
+
+   .l-diagnosis--modal .l-diagnosis__next-button {
+    font-size: 2.4rem;
+   }
+
+   .l-diagnosis--modal .l-diagnosis__button-container--move {
+    inline-size: 660px;
+   }
+
+   .l-diagnosis--modal .l-diagnosis__item-image {
+      block-size: 150px;
+   }
+
+   .l-diagnosis--modal .l-diagnosis__item-image--one {
+      inline-size: 220px;
+   }
+
+   .l-diagnosis--modal .l-diagnosis__item-image--two {
+      inline-size: 138px;
+    }
+
+    .l-diagnosis--modal .l-diagnosis__item-image--three {
+      inline-size: 155px;
+    }
+
+    .l-diagnosis--modal .l-diagnosis__item-image--four {
+      inline-size: 160px;
+    }
+
+    .l-diagnosis--modal .l-diagnosis__item-image--five {
+      inline-size: 210px;
+    }
+
+    .l-diagnosis--modal .l-diagnosis__item-image--six {
+      inline-size: 225px;
+    }
+
+    .l-diagnosis--modal .l-diagnosis__item-content--result {
+      grid-template-areas: 'image title'
+        'image rank'
+        'image text'
+        'button button';
+      padding: 45px 16px 30px;
+    }
+
+    .l-diagnosis--modal .l-diagnosis__result-title {
+      grid-area: title;
+      font-size: 1.8rem;
+    }
+
+    .l-diagnosis--modal .l-diagnosis__result-rank {
+      grid-area: rank;
+    }
+
+    .l-diagnosis--modal .l-diagnosis__item-image--result {
+      grid-area: image;
+      inline-size: fit-content;
+      block-size: auto;
+    }
+
+    .l-diagnosis--modal .l-diagnosis__result-text {
+      grid-area: text;
+      font-size: 1.6rem;
+    }
+
+    .l-diagnosis--modal .l-diagnosis__result-small-text {
+      font-size: 1.4rem;
+    }
+
+    .l-diagnosis--modal .l-diagnosis__cta-button {
+      grid-area: button;
+    }
+
+    .l-diagnosis--modal .l-diagnosis__result-item {
+      font-size: 2.1rem;
+    }
+
+    .l-diagnosis--modal .l-diagnosis__result-item--one {
+      font-size: 3.4rem;
+    }
+
+    .l-diagnosis--modal .c-curves-button--diagnosis {
+      inline-size: fit-content;
+      block-size: auto;
+      font-size: 2.4rem;
+    }
+
+    .l-large-right__address-wrapper {
+      display: grid;
+      grid-auto-flow: column;
+      grid-template-columns: auto;
+      align-items: center;
+    }
+
   @media (any-hover: hover) {
     .l-large-left__list-item:hover {
       text-decoration: revert;
       text-decoration-color: var(--color-pc-brown);
     }
+
+    .c-button:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .c-curves-button--monitor {
+    font-size: 1.7rem;
+  }
+
+  .c-curves-button {
+    column-gap: 5px;
+    inline-size: 100%;
+    min-inline-size: 260px;
+  }
+
+  .l-monitor__feature-item {
+    padding: 5px 2px;
   }
 }
