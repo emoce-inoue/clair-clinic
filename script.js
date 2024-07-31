@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // モーダル用の診断コンテンツの初期化
   const modalTriggers = document.querySelectorAll('.js-diagnosis-modal-trigger');
   const modalOverlay = document.querySelector('.js-modal-overlay');
-  const modalClose = document.querySelector('.js-modal-close');
+  const modalClose = document.querySelectorAll('.js-modal-close');
   const diagnosisItemsModal = document.querySelectorAll('.js-diagnosis-modal .l-diagnosis__item');
   let modalCurrentStep = 0;
   const modalPoints = {
@@ -218,7 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const handleAnswerClickModal = (event) => {
       const answerElement = event.target.closest('.l-diagnosis__answer-button');
       if (answerElement) {
-        console.log(modalCurrentStep)
         updatePointsModal(answerElement);
         setInactiveAnswersModal(answerElement);
         toggleNextButtonModal(modalCurrentStep);
@@ -254,7 +253,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const showResultButtonModal = () => {
       const showResultButton = document.querySelector('.js-diagnosis-modal .js-show-result');
       const answered = diagnosisItemsModal[modalCurrentStep].querySelector('.l-diagnosis__answer-button.inactive');
-      console.log(answered)
       if (answered) {
         showResultButton.classList.add('active');
       }
@@ -346,8 +344,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
     if (modalClose) {
-      modalClose.addEventListener('click', () => {
-        modalOverlay.style.display = 'none';
+      modalClose.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+          modalOverlay.style.display = 'none';
+        });
       });
     }
     if (modalOverlay) {
@@ -366,8 +366,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const hamburger = document.querySelector('.js-hamburger');
   const drawer = document.getElementById('js-drawer');
   const drawerCloseButton = document.querySelector('.js-drawer-close');
-  // ドロワーメニュー表示
   const showDrawer = () => {
+    if (drawer.open) {
+      drawer.close();
+    }
     drawer.setAttribute('data-active', 'true');
     drawer.showModal();
   };
@@ -382,6 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Swiper
   const beforeAfterSlider = new Swiper(".js-before-after-slider", {
     loop: true,
+    loopAdditionalSlides: 4,
     slidesPerView: 2.75,
     speed: 6000,
     allowTouchMove: false,
@@ -515,4 +518,31 @@ document.addEventListener('DOMContentLoaded', () => {
       contentToShow.classList.add('active');
     });
   });
+
+//スムーススクロール
+  const header = document.querySelector('.l-header');
+  const headerHeight = header.offsetHeight;
+  const links = document.querySelectorAll('.scroll-link');
+  links.forEach(link => {
+    link.addEventListener('click', event => {
+      event.preventDefault();
+      const targetId = link.getAttribute('href').substring(1);
+      // ページトップへのリンクの場合
+      if (targetId === "") {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+        return;
+      }
+
+      const targetElement = document.getElementById(targetId);
+      const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    });
+  });
+
 });
