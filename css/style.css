@@ -1673,7 +1673,7 @@ summary::-webkit-details-marker {
 
 .l-monitor__belt {
   position: absolute;
-  inset-block-start: -50px;
+  inset-block-start: -40px;
   inset-inline: 0;
   inline-size: calc(390 / 390* 100%);
 }
@@ -1723,16 +1723,23 @@ summary::-webkit-details-marker {
   font-size: 1.4rem;
 }
 
-.l-monitor__feature-item:nth-child(3) {
+.l-monitor__feature-item:nth-child(1),
+.l-monitor__feature-item:nth-child(4) {
   position: relative;
-  grid-auto-flow: column;
+}
+
+.l-monitor__feature-item:nth-child(1) {
+  font-size: 1.3rem;
+}
+
+.l-monitor__feature-item:nth-child(3) {
   font-size: 1.1rem;
 }
 
 .l-monitor__feature-item-comment {
   position: absolute;
   inset-inline-end: 5px;
-  inset-block-start: 5px;
+  inset-block-start: 3px;
   font-size: 0.6rem;
 }
 
