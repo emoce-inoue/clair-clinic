@@ -326,7 +326,7 @@ summary::-webkit-details-marker {
 }
 
 .js-scaling.is-inview {
-  animation: scaling .2s ease-in-out forwards;
+  animation: scaling 1s ease-in-out forwards;
 }
 
 /* ----- component ----- */
@@ -2736,6 +2736,10 @@ summary::-webkit-details-marker {
   .l-monitor__feature-item {
     padding: 5px 2px;
   }
+
+  .l-diagnosis__result-title {
+    padding: 4px 5px;
+  }
 }
 
 @media screen and (min-width: 560px) and (max-width: 767px) {
@@ -2789,6 +2793,11 @@ summary::-webkit-details-marker {
 
   .l-main-contents {
     max-inline-size: 390px;
+    margin: auto;
+  }
+
+  .l-diagnosis-modal-overlay {
+    inline-size: 390px;
     margin: auto;
   }
 }
@@ -2938,140 +2947,6 @@ summary::-webkit-details-marker {
   .l-large-left__contact-title,
   .l-large-right__inner {
     color: var(--color-pc-brown);
-  }
-
-  .l-diagnosis--modal {
-    inline-size: 100%;
-    max-inline-size: 943px;
-  }
-
-  .l-diagnosis__item-content::after {
-    right: -4.6px;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__modal-close {
-    inset-block-start: 30px;
-    inset-inline-end: 50px;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__item-title {
-    font-size: 2.9rem;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__answer-en {
-    font-size: 3.5rem;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__answer-button {
-    block-size: 100px;
-    inline-size: 190px;
-    font-size: 1.8rem;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__count {
-    font-size: 1.7rem;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__count-number {
-    font-size: 4rem;
-  }
-
-  .sp-br {
-    display: none;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__button-container {
-    inline-size: revert;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__prev-button {
-  font-size: 2rem;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__next-button {
-  font-size: 2.4rem;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__button-container--move {
-  inline-size: 660px;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__item-image {
-    block-size: 150px;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__item-image--one {
-    inline-size: 220px;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__item-image--two {
-    inline-size: 138px;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__item-image--three {
-    inline-size: 155px;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__item-image--four {
-    inline-size: 160px;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__item-image--five {
-    inline-size: 210px;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__item-image--six {
-    inline-size: 225px;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__item-content--result {
-    grid-template-areas: 'image title'
-      'image rank'
-      'image text'
-      'button button';
-    padding: 45px 16px 30px;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__result-title {
-    grid-area: title;
-    font-size: 1.8rem;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__result-rank {
-    grid-area: rank;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__item-image--result {
-    grid-area: image;
-    inline-size: fit-content;
-    block-size: auto;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__result-text {
-    grid-area: text;
-    font-size: 1.6rem;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__result-small-text {
-    font-size: 1.4rem;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__cta-button {
-    grid-area: button;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__result-item {
-    font-size: 2.1rem;
-  }
-
-  .l-diagnosis--modal .l-diagnosis__result-item--one {
-    font-size: 3.4rem;
-  }
-
-  .l-diagnosis--modal .c-curves-button--diagnosis {
-    inline-size: fit-content;
-    block-size: auto;
-    font-size: 2.4rem;
   }
 
   .l-large-right__address-wrapper {
