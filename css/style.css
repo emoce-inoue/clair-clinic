@@ -1362,14 +1362,14 @@ summary::-webkit-details-marker {
   content: '';
   position: absolute;
   inset-block-end: -60px;
-  inset-inline-end: 15px;
+  inset-inline-end: 10px;
   display: grid;
   justify-self: end;
-  block-size: 60px;
-  inline-size: 35px;
+  block-size: 80px;
+  inline-size: auto;
   margin: auto;
   aspect-ratio: 1;
-  background: var(--slider-pointer) no-repeat center / contain;
+  background: url(../images/slider-pointer.webp) no-repeat center / cover;
   animation: float 2s ease-in-out infinite;
 }
 
